@@ -1,4 +1,4 @@
-import { use, useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { getApiErrorMessage } from "../api/axiosInstance"
 import { getPaymentStatusList } from "../api/services/payments"
 import { PaymentStatusOptions } from "../types/services/payments"

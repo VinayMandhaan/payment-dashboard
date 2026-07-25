@@ -10,7 +10,7 @@ const FilterChips = ({options, value, onChange}:FilterChipsProps) => {
         <div className="filters">
             {
                 options.map((option) => (
-                    <button key={option} className={`filter-chip ${value == option ? 'active' : ''}`} onClick={() => onChange(option)}>
+                    <button key={option} className={`filter-chip ${value === option ? 'active' : ''}`} onClick={() => onChange(option)}>
                         {option.toUpperCase()}
                     </button>
                 ))

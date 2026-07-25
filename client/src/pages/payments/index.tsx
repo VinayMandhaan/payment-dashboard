@@ -3,7 +3,6 @@ import PaymentsTables from "../../components/Payments/PaymentsTables"
 import Loader from "../../components/Generics/Loader";
 import ErrorMessage from "../../components/Generics/ErrorMessage";
 import Button from "../../components/Generics/Button";
-import { getApiErrorMessage } from "../../api/axiosInstance";
 import FilterChips from "../../components/Generics/FilterChips";
 import { usePayments } from "../../hooks/usePayment";
 import { usePaymentStatus } from "../../hooks/usePaymentStatus";
