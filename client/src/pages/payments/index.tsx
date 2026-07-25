@@ -22,7 +22,14 @@ const Payments = () => {
         <div className="page">
             <h1>Payment Dashboard</h1>
             {
-                statusLoading ? <></> : statusError ? <ErrorMessage message={statusError ?? 'Something went wrong'} /> : (
+                statusLoading ? <></> : statusError ? (
+                    <>
+                        <ErrorMessage message={statusError ?? 'Something went wrong'} />
+                        <Button title="Retry" onClick={() => {
+                            retryData()
+                        }} />
+                    </>
+                ) : (
                     <FilterChips
                         options={['all', ...statusList.map((s) => s.title)]}
                         value={status}
