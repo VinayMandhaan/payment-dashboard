@@ -28,6 +28,9 @@ const paymentColumns: Column<Payment>[] = [
 ]
 
 function PaymentsTables({payments}: PaymentTableProps) {
+    if(payments.length == 0) {
+        return <p>No Payments Found</p>
+    }
     return (
         <Tables columns={paymentColumns} data={payments}/>
     )

@@ -1,102 +1,54 @@
-import { useCallback, useEffect, useState } from "react"
-import { getPayments, getPaymentStatusList } from "../../api/services/payments"
-import { Payment, PaymentStatusOptions } from "../../types/services/payments"
+import { useState } from "react"
 import PaymentsTables from "../../components/Payments/PaymentsTables"
 import Loader from "../../components/Generics/Loader";
 import ErrorMessage from "../../components/Generics/ErrorMessage";
 import Button from "../../components/Generics/Button";
 import { getApiErrorMessage } from "../../api/axiosInstance";
 import FilterChips from "../../components/Generics/FilterChips";
+import { usePayments } from "../../hooks/usePayment";
+import { usePaymentStatus } from "../../hooks/usePaymentStatus";
 
 const Payments = () => {
-const [payments, setPayments] = useState<Payment[]>([])
-const [status, setStatus] = useState('all')
-const [statusList, setStatusList] = useState<PaymentStatusOptions[]>([])
-const [loading, setLoading] = useState({
-    payments: false,
-    status: false
-})
-const [error, setError] = useState<{ payments: string | null; status: string | null }>({
-    payments: null,
-    status: null,
-});
+    const [status, setStatus] = useState('all')
+    const { payments, loading: paymentLoading, error: paymentError, reloadPayments } = usePayments(status)
+    const { statusList, loading: statusLoading, error: statusError, reloadStatusList } = usePaymentStatus()
 
-const loadPayments = useCallback(async () => {
-    setLoading((prev) => ({ ...prev, payments: true }))
-    setError((prev) => ({ ...prev, payments: null }))
-    try {
-        const data = await getPayments(status)
-        setPayments(data)
-    } catch (err) {
-        setError((prev) => ({ ...prev, status: getApiErrorMessage(err) }));
-    } finally {
-        setLoading((prev) => ({ ...prev, payments: false }))
 
+    const retryData = () => {
+        if (paymentError) reloadPayments()
+        if (statusError) reloadStatusList()
     }
-}, [status])
 
-const loadPaymentStatusList = useCallback(async () => {
-    setLoading((prev) => ({ ...prev, status: true }))
-    setError((prev) => ({ ...prev, status: null }))
-    try {
-        const data = await getPaymentStatusList()
-        setStatusList(data)
-    } catch (err) {
-        setError((prev) => ({ ...prev, status: getApiErrorMessage(err) }));
-    } finally {
-        setLoading((prev) => ({ ...prev, status: false }))
-    }
-}, [])
+    return (
+        <div className="page">
+            <h1>Payment Dashboard</h1>
+            {
+                statusLoading ? <></> : statusError ? <ErrorMessage message={statusError ?? 'Something went wrong'} /> : (
+                    <FilterChips
+                        options={['all', ...statusList.map((s) => s.title)]}
+                        value={status}
+                        onChange={setStatus} />
+                )
+            }
 
-const retryData = () => {
-    if (error?.payments) {
-        loadPayments()
-    } else {
-        loadPaymentStatusList()
-    }
-}
-
-useEffect(() => {
-    loadPaymentStatusList()
-}, [])
-
-useEffect(() => {
-    loadPayments()
-}, [loadPayments])
-
-
-return (
-    <div className="page">
-        <h1>Payment Dashboard</h1>
-
-        <FilterChips
-            options={['all', ...statusList.map((s) => s.title)]}
-            value={status}
-            onChange={setStatus} />
-        {
-            loading?.payments ? (
-                <Loader />
-            ) : (
-
-                <div>
-
-                    <PaymentsTables payments={payments} />
-
-                </div>
-            )
-        }
-        {
-            (error.payments || error.status) && (
-                <div className="status">
-                    <ErrorMessage message={error.payments ? error.payments : error.status ? error.status : 'Something went wrong'} />
-                    <Button title="Retry" onClick={() => {
-                        retryData()
-                    }} />
-                </div>
-            )
-        }
-    </div>
-)
+            {
+                paymentLoading ? (
+                    <Loader />
+                ) : paymentError ? (
+                    <div className="status">
+                        <ErrorMessage message={paymentError ?? 'Something went wrong'} />
+                        <Button title="Retry" onClick={() => {
+                            retryData()
+                        }} />
+                    </div>
+                ) : (
+                    <div>
+                        <PaymentsTables payments={payments} />
+                    </div>
+                )
+            }
+        </div>
+    )
 }
 
 
