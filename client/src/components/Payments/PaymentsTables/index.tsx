@@ -1,5 +1,6 @@
 import { Payment } from "../../../types/services/payments"
 import { Column } from "../../../types/ui/tables"
+import { formatAmount, formatDate } from "../../../utils"
 import Tables from "../../Generics/Tables"
 
 interface PaymentTableProps {
@@ -13,8 +14,17 @@ const paymentColumns: Column<Payment>[] = [
     },
     {
         header: 'Amount',
-        render: (p) => p.amount
+        render: (p) => formatAmount(p.amount, p.currency)
+    },
+    {
+        header: 'Status',
+        render: (p) => p.status?.toLocaleUpperCase()
+    },
+    {
+        header:'Created at',
+        render: (p) => formatDate(p.createdAt.toString())
     }
+
 ]
 
 function PaymentsTables({payments}: PaymentTableProps) {
