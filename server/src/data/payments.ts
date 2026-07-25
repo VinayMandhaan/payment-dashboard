@@ -1,4 +1,4 @@
-import { Payment } from "../models/Payment";
+import { Payment } from "../models/payments";
 
 export const paymentData: Payment[] = [
     {
@@ -47,7 +47,7 @@ export const paymentData: Payment[] = [
         paymentId: 7,
         amount: 40,
         currency: 'EUR',
-        status: 'Aproved',
+        status: 'Approved',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
 ]
