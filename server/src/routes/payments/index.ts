@@ -9,7 +9,7 @@ router.get('/payments', (req: Request, res: Response) => {
         return res.json(getPayments(paymentStatus?.toLowerCase()))
     } catch (err) {
         const error = err instanceof Error ? err.message : 'Something went wrong'
-        return res.status(500).json({ error })
+        return res.status(400).json({ error })
     }
 })
 
