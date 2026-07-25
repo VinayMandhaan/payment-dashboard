@@ -7,3 +7,8 @@ export interface Payment {
     status: PaymentStatus;
     createdAt: Date;
 }
+
+export interface PaymentStatusOptions {
+    id: number;
+    title: PaymentStatus
+}

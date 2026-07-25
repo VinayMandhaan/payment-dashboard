@@ -18,7 +18,7 @@ const paymentColumns: Column<Payment>[] = [
     },
     {
         header: 'Status',
-        render: (p) => p.status?.toLocaleUpperCase()
+        render: (p) => <span className={`badge badge-${p.status?.toLowerCase()}`}>{p.status?.toLocaleUpperCase()}</span>
     },
     {
         header:'Created at',

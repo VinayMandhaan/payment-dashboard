@@ -1,4 +1,4 @@
-import { Payment } from "../models/payments";
+import { Payment, PaymentStatusOptions } from "../models/payments";
 
 export const paymentData: Payment[] = [
     {
@@ -50,4 +50,20 @@ export const paymentData: Payment[] = [
         status: 'approved',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
+]
+
+
+export const paymentStatusData : PaymentStatusOptions[] = [
+    {
+        id: 1,
+        title: 'approved'
+    },
+    {
+        id: 2,
+        title: 'pending'
+    },
+    {
+        id: 3,
+        title: 'rejected'
+    }
 ]
