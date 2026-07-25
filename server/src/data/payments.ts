@@ -5,49 +5,49 @@ export const paymentData: Payment[] = [
         paymentId: 1,
         amount: 120,
         currency: 'AED',
-        status: 'Approved',
+        status: 'approved',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 2,
         amount: 50.99,
         currency: 'USD',
-        status: 'Rejected',
+        status: 'rejected',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 3,
         amount: 200,
         currency: 'AED',
-        status: 'Rejected',
+        status: 'rejected',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 4,
         amount: 100,
         currency: 'EUR',
-        status: 'Pending',
+        status: 'pending',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 5,
         amount: 25.50,
         currency: 'USD',
-        status: 'Rejected',
+        status: 'rejected',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 6,
         amount: 160,
         currency: 'USD',
-        status: 'Pending',
+        status: 'pending',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
     {
         paymentId: 7,
         amount: 40,
         currency: 'EUR',
-        status: 'Approved',
+        status: 'approved',
         createdAt: new Date('2026-07-01T09:14:00.000Z')
     },
 ]
