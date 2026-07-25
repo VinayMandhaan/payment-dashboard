@@ -4,7 +4,7 @@ import { TableProps } from "../../../types/ui/tables";
 function Tables<T>({columns, data}: TableProps<T>) {
 
     return (
-        <table>
+        <table className="data-table">
             <thead>
                 <tr>
                     {
@@ -16,10 +16,10 @@ function Tables<T>({columns, data}: TableProps<T>) {
             </thead>
             <tbody>
                 {
-                    data.map((row) => (
-                        <tr>
-                            {columns.map((col) => (
-                                <td>{col.render(row)}</td>
+                    data.map((row, index) => (
+                        <tr key={index}>
+                            {columns.map((col, index) => (
+                                <td key={index}>{col.render(row)}</td>
                             ))}
                         </tr>
                     ))
